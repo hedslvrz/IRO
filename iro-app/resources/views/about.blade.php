@@ -2,8 +2,8 @@
 
     {{-- Everything you type here will appear in the <main> section of your sidebar layout --}}
     <div class="p-10">
-        <h1 class="text-3xl font-bold text-gray-900">Welcome to the IRO Content</h1>
-        <p class="mt-4 text-gray-600">The sidebar layout is now working fucking correctly!</p>
+        <h1 class="text-3xl font-bold text-gray-900">Welcome to the IRO ContentDashboard</h1>
+        <p class="mt-4 text-gray-600">This page will be about the International Relations Office.</p>
 
         </div>
 
