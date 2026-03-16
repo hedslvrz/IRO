@@ -5,7 +5,7 @@
     <div class="relative w-full h-[500px] flex items-center justify-center bg-gray-900 bg-cover bg-center" style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
 
         {{-- Dark Overlay to make text readable --}}
-        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="absolute inset-0 bg-red-700/60"></div>
 
         {{-- Hero Content --}}
         <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
