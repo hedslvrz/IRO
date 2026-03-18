@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CollegeController;
 
 Route::view('/', 'iro')->name('home');
 Route::view('/iro','iro')->name('iro.home');
@@ -14,6 +15,7 @@ Route::view('/global-affairs','global-affairs')->name('global-affairs');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
 });
 
 require __DIR__.'/settings.php';
