@@ -11,6 +11,7 @@ Route::view('/academics', 'academics')->name('academics');
 Route::view('/intl-networks','international-networks')->name('intl-net');
 Route::view('/sustainability','sustainability')->name('sustainability');
 Route::view('/news','news')->name('news');
+Route::view('/news/article', 'news-article')->name('news.article');
 Route::view('/global-affairs','global-affairs')->name('global-affairs');
 
 Route::middleware(['auth', 'verified'])->group(function () {
