@@ -101,7 +101,7 @@
                         <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6">
                             @foreach($programs as $program)
                                 <li>
-                                    <a href="#" class="flex items-center text-[15px] font-medium text-gray-700 hover:text-red-700 hover:translate-x-1 transition-all duration-200">
+                                    <a href="{{ route('academics-program') }}" class="flex items-center text-[15px] font-medium text-gray-700 hover:text-red-700 hover:translate-x-1 transition-all duration-200">
                                         <svg class="w-4 h-4 mr-2.5 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                                         {{ $program }}
                                     </a>
