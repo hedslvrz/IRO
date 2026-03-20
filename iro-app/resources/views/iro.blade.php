@@ -2,7 +2,7 @@
 
     {{-- Everything you type here will appear in the <main> section of your sidebar layout --}}
     {{-- HERO SECTION --}}
-    <div class="relative w-full h-[500px] flex items-center justify-center bg-gray-900 bg-cover bg-center" style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
+    <div class="relative w-full h-125 flex items-center justify-center bg-gray-900 bg-cover bg-center" style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
 
         {{-- Dark Overlay to make text readable --}}
         <div class="absolute inset-0 bg-red-700/60"></div>

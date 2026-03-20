@@ -74,7 +74,7 @@
             </header>
 
             <figure class="mb-12">
-                <div class="w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-md">
+                <div class="w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-md">
                     <img src="{{ $article['image'] }}" alt="{{ $article['headline'] }}" class="w-full h-full object-cover">
                 </div>
                 @if(isset($article['image_caption']))

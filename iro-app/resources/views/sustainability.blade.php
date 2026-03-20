@@ -207,7 +207,7 @@
                 </nav>
 
                 <main class="w-full lg:w-2/3">
-                    <div class="bg-white p-8 md:p-10 rounded-xl shadow-sm border border-gray-200 min-h-[500px] sticky top-8">
+                    <div class="bg-white p-8 md:p-10 rounded-xl shadow-sm border border-gray-200 min-h-125 sticky top-8">
 
                         @foreach($sdgs as $num => $sdg)
                             <div x-show="activeSdg === {{ $num }}"
