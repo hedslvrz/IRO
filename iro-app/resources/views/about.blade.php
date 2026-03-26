@@ -17,7 +17,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row gap-10">
 
         {{-- SECONDARY SIDEBAR (Left Column) --}}
-        <aside class="md:w-1/4 flex-shrink-0">
+        <aside class="md:w-1/4 shrink-0">
             <div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-200 p-5 border-t-4 border-t-red-700">
                 <h3 class="font-bold text-gray-900 mb-4 px-3 uppercase tracking-wider text-xs">On this page</h3>
 

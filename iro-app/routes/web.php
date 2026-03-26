@@ -8,9 +8,11 @@ Route::view('/iro','iro')->name('iro.home');
 Route::view('/about','about')->name('about');
 Route::view('/izn','izn-program')->name('izn');
 Route::view('/academics', 'academics')->name('academics');
+Route::view('/academics/program', 'academic-program')->name('academics-program');
 Route::view('/intl-networks','international-networks')->name('intl-net');
 Route::view('/sustainability','sustainability')->name('sustainability');
 Route::view('/news','news')->name('news');
+Route::view('/news/article', 'news-article')->name('news.article');
 Route::view('/global-affairs','global-affairs')->name('global-affairs');
 
 Route::middleware(['auth', 'verified'])->group(function () {
