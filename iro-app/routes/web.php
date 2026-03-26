@@ -18,6 +18,13 @@ Route::view('/global-affairs','global-affairs')->name('global-affairs');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
+
+    //Admin Route for Academics Management
+    Route::get('/admin/academics', \App\Livewire\Admin\AcademicsManager::class)->name('admin.academics');
+    Route::get('/admin/academics/{program}/edit', \App\Livewire\Admin\AcademicProgramEditor::class)->name('admin.academics.edit');
 });
+
+
+Route::get('/academics/{slug}', \App\Http\Controllers\AcademicProgramController::class)->name('academics.show');
 
 require __DIR__.'/settings.php';

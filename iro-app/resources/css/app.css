@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -37,6 +40,22 @@
 }
 
 @layer base {
+    :root {
+        /* WMSU Crimson Red Base */
+        --color-accent: var(--color-red-700);
+        --color-accent-content: var(--color-white);
+        --color-accent-hover: var(--color-red-800);
+
+        /* If using standard hex for exact WMSU red */
+        /* --color-accent: #990000; */
+        /* --color-accent-hover: #7a0000; */
+    }
+
+    .dark {
+        --color-accent: var(--color-red-600);
+        --color-accent-content: var(--color-white);
+        --color-accent-hover: var(--color-red-500);
+    }
 
     *,
     ::after,
@@ -60,6 +79,8 @@ textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
+
+
 
 /* \[:where(&)\]:size-4 {
     @apply size-4;
