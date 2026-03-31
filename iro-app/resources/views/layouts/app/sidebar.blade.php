@@ -19,6 +19,9 @@
                     <flux:sidebar.item :href="route('colleges.index')" :current="request()->routeIs('colleges.*')" wire:navigate>
                         {{ __('Manage Colleges') }}
                     </flux:sidebar.item >
+                    <flux:sidebar.item :href="route('admin.news.index')" :current="request()->routeIs('news.*')" wire:navigate>
+                        {{ __('Manage News') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
