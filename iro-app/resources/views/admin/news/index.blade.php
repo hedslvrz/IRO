@@ -20,6 +20,32 @@
                 </a>
             </div>
 
+            <div class="mb-6 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <form action="{{ route('admin.news.index') }}" method="GET" class="flex flex-col sm:flex-row gap-4">
+                    <div class="grow relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+
+                        <input type="text" name="search" value="{{ request('search') }}"
+                               placeholder="Start typing to search articles..."
+                               class="w-full pl-10 rounded-lg border-gray-300 focus:border-[#990000] focus:ring-[#990000] shadow-sm text-sm"
+                               oninput="clearTimeout(this.delay); this.delay = setTimeout(() => this.form.submit(), 500);"
+                               {{ request('search') ? 'autofocus' : '' }}
+                               onfocus="let val = this.value; this.value = ''; this.value = val;">
+                    </div>
+
+                    {{-- Only show the 'Clear' button if a search is currently active --}}
+                    @if(request('search'))
+                        <div class="flex gap-2">
+                            <a href="{{ route('admin.news.index') }}" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors text-sm shadow-sm text-center flex items-center justify-center">
+                                Clear Search
+                            </a>
+                        </div>
+                    @endif
+                </form>
+            </div>
+
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm text-gray-600">

@@ -1,7 +1,7 @@
 <x-layouts::app.iro-sidebar>
 
     <flux:main>
-        
+
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -13,8 +13,8 @@
             <div x-data="{
                     activeSlide: 0,
                     totalSlides: {{ count($featuredNews) }},
-                    next() { this.activeSlide = activeSlide === this.totalSlides - 1 ? 0 : this.activeSlide + 1 },
-                    prev() { this.activeSlide = activeSlide === 0 ? this.totalSlides - 1 : this.activeSlide - 1 }
+                    next() { this.activeSlide = this.activeSlide === this.totalSlides - 1 ? 0 : this.activeSlide + 1 },
+                    prev() { this.activeSlide = this.activeSlide === 0 ? this.totalSlides - 1 : this.activeSlide - 1 }
                 }"
                 class="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg mb-12 group bg-gray-900">
 
@@ -52,10 +52,10 @@
                     @endforeach
                 </div>
 
-                <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                <button @click="prev()" class="absolute z-10 left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
-                <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                <button @click="next()" class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
 

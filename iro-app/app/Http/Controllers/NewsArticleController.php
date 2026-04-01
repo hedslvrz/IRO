@@ -12,18 +12,53 @@ class NewsArticleController extends Controller
 {
     public function publicIndex()
     {
-        $featuredNews = NewsArticle::where('is_published', true)->latest('published_at')->take(3)->get();
-        $generalNews = NewsArticle::where('is_published', true)->latest('published_at')->skip(3)->take(4)->get();
-        $trendingPosts = NewsArticle::where('is_published', true)->orderBy('views', 'desc')->take(4)->get();
+        // FEATURED: Must be published AND featured
+        $featuredNews = NewsArticle::where('is_published', true)
+                                   ->where('is_featured', true)
+                                   ->latest('published_at')
+                                   ->take(3)->get();
+
+        // GENERAL: Published, but NOT featured (avoids duplicates)
+        $generalNews = NewsArticle::where('is_published', true)
+                                  ->latest('published_at')
+                                  ->take(6)->get();
+
+        // TRENDING: Most viewed published articles
+        $trendingPosts = NewsArticle::where('is_published', true)
+                                    ->orderBy('views', 'desc')
+                                    ->take(4)->get();
 
         return view('news', compact('featuredNews', 'generalNews', 'trendingPosts'));
     }
 
-    public function index()
+    public function show(NewsArticle $news)
     {
-        // Fetch articles from newest to oldest, with pagination
-        $articles = NewsArticle::latest()->paginate(10);
-        return view('admin.news.index', compact('articles'));
+        // Hide from public ONLY if it is saved as a draft (is_published = false)
+        if (!$news->is_published) {
+            abort(404);
+        }
+
+        $news->increment('views');
+
+        return view('news-article', ['article' => $news]);
+    }
+
+    public function index(Request $request)
+    {
+        // 1. Grab the search term from the URL (if there is one)
+        $search = $request->input('search');
+
+        // 2. Fetch articles, applying a filter if a search term exists
+        $articles = NewsArticle::when($search, function ($query, $search) {
+            return $query->where('title', 'like', "%{$search}%")
+                         ->orWhere('category', 'like', "%{$search}%")
+                         ->orWhere('author', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString(); // <-- IMPORTANT: This keeps the search term in the URL when you click to Page 2!
+
+        return view('admin.news.index', compact('articles', 'search'));
     }
 
     public function create()
@@ -96,8 +131,9 @@ class NewsArticleController extends Controller
             'quote' => 'nullable|string',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'image_caption' => 'nullable|string|max:255',
-            'tags' => 'nullable|string|max:255',                   
+            'tags' => 'nullable|string|max:255',
             'is_published' => 'boolean',
+            'is_featured' => 'boolean',
             'published_at' => 'nullable|date',
         ]);
     }

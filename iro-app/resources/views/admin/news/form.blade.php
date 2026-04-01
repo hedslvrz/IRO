@@ -109,18 +109,25 @@
                     <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
                         <label class="block text-sm font-semibold text-gray-700 mb-4">Publishing Status</label>
 
-                        <label class="flex items-center space-x-3 mb-4 cursor-pointer">
+                        <label class="flex items-center space-x-3 mb-3 cursor-pointer">
                             <input type="hidden" name="is_published" value="0">
-                            <input type="checkbox" name="is_published" value="1" {{ old('is_published', $article->is_published) ? 'checked' : '' }}
+                            <input type="checkbox" name="is_published" value="1" {{ old('is_published', $article->exists ? $article->is_published : true) ? 'checked' : '' }}
                                    class="rounded border-gray-300 text-[#990000] focus:ring-[#990000] w-5 h-5">
                             <span class="text-gray-900 font-medium">Publish this article to the live site</span>
                         </label>
 
+                        <label class="flex items-center space-x-3 mb-5 cursor-pointer">
+                            <input type="hidden" name="is_featured" value="0">
+                            <input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $article->is_featured) ? 'checked' : '' }}
+                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-5 h-5">
+                            <span class="text-gray-900 font-medium">Pin to the "Featured News" carousel</span>
+                        </label>
+
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1">Publish Date (Optional)</label>
+                            <label class="block text-xs font-semibold text-blue-800 mb-1">Article Date (Optional)</label>
                             <input type="date" name="published_at"
                                    value="{{ old('published_at', $article->published_at ? $article->published_at->format('Y-m-d') : '') }}"
-                                   class="w-full rounded-lg border-gray-300 text-sm focus:border-[#990000] focus:ring-[#990000] shadow-sm">
+                                   class="w-full rounded-lg border-blue-300 text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm">
                         </div>
                     </div>
                 </div>

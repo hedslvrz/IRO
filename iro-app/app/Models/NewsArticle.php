@@ -24,12 +24,14 @@ class NewsArticle extends Model
         'tags',
         'views',
         'is_published',
+        'is_featured',
         'published_at',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
         'is_published' => 'boolean',
+        'is_featured' => 'boolean',
         'views' => 'integer',
     ];
 }
