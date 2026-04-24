@@ -1,60 +1,7 @@
 <x-layouts::app.iro-sidebar>
 
     <flux:main>
-        @php
-            // SIMULATED DATABASE RECORD
-            // You will replace this with your actual Database Model ($program) later.
-            $program = [
-                'id' => 1,
-                'title' => 'Global Engineering Exchange Program',
-                'category' => 'International Exchange', // Could be 'College of Engineering', 'Short Course', etc.
-                'degree_level' => 'Undergraduate',
-                'image' => 'https://placehold.co/1200x500/990000/ffffff?text=Engineering+Exchange',
 
-                'overview' => 'The Global Engineering Exchange Program is a premier initiative by the WMSU International Relations Office designed to give junior and senior engineering students hands-on experience in advanced technological environments abroad. Partnering with top universities in Japan and South Korea, this program bridges local academic excellence with global industry standards.',
-
-                // Quick Facts for the sidebar
-                'quick_facts' => [
-                    'Duration' => '1 Semester (5 Months)',
-                    'Location' => 'Tokyo, Japan / Seoul, South Korea',
-                    'Language' => 'English',
-                    'Intake' => 'Fall (August) & Spring (February)',
-                    'Credits' => 'Fully transferable to WMSU'
-                ],
-
-                // Accordion data for the structure/curriculum
-                'structure' => [
-                    [
-                        'phase' => 'Core Specialization Seminars',
-                        'details' => 'Students will participate in advanced seminars focusing on Robotics, Artificial Intelligence, and Sustainable Infrastructure, led by international faculty.'
-                    ],
-                    [
-                        'phase' => 'Industry Immersion & Lab Work',
-                        'details' => '150 hours of hands-on laboratory work using state-of-the-art equipment not currently available locally, paired with industry visits to leading tech corporations.'
-                    ],
-                    [
-                        'phase' => 'Cultural Integration',
-                        'details' => 'Weekly language and cultural classes to ensure students can navigate their host country effectively and build lasting international networks.'
-                    ]
-                ],
-
-                'eligibility' => [
-                    'Must be a currently enrolled 3rd or 4th-year Engineering student at WMSU.',
-                    'Minimum Cumulative Grade Point Average (CGPA) of 1.75 or better.',
-                    'Proof of English proficiency (TOEFL/IELTS or institutional equivalent).',
-                    'Endorsement letter from the College Dean.'
-                ],
-
-                'opportunities' => 'Graduates of this exchange program consistently report higher employability rates, often securing positions in multinational engineering firms. The international exposure also makes them prime candidates for prestigious global postgraduate scholarships like the Monbukagakusho (MEXT) or KGSP.',
-
-                'cta' => [
-                    'primary_text' => 'Apply for Fall Intake',
-                    'primary_url' => '#',
-                    'secondary_text' => 'Download Program Brochure',
-                    'secondary_url' => '#'
-                ]
-            ];
-        @endphp
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
@@ -64,13 +11,13 @@
             </a>
 
             <div class="relative w-full h-75 md:h-100 rounded-3xl overflow-hidden shadow-lg mb-12 bg-gray-900 flex items-end">
-                <img src="{{ $program['image'] }}" alt="{{ $program['title'] }}" class="absolute inset-0 w-full h-full object-cover opacity-50">
+                <img src="{{ $program->image }}" alt="{{ $program->title }}" class="absolute inset-0 w-full h-full object-cover opacity-50">
                 <div class="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent"></div>
 
                 <div class="relative z-10 p-8 md:p-12 w-full">
                     <div class="flex flex-wrap gap-3 mb-4">
                         <span class="bg-[#990000] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-sm">
-                            {{ $program['category'] }}
+                            {{ $program->category }}
                         </span>
                         @if($program['degree_level'])
                             <span class="bg-white/20 backdrop-blur-md text-white border border-white/30 text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-sm">
@@ -176,13 +123,21 @@
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to expand your horizons?</h3>
                             <p class="text-sm text-gray-600 mb-6">Contact the International Relations Office or start your application today.</p>
 
-                            <a href="{{ $program['cta']['primary_url'] }}" class="block w-full bg-[#990000] hover:bg-red-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors mb-3">
-                                {{ $program['cta']['primary_text'] }}
-                            </a>
+                            @if($program->cta)
+                                {{-- Primary Button (Only shows if primary_text and primary_url exist) --}}
+                                @if(isset($program->cta['primary_text']) && isset($program->cta['primary_url']))
+                                    <a href="{{ $program->cta['primary_url'] }}" class="block text-center w-full bg-[#990000] hover:bg-red-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors mb-3">
+                                        {{ $program->cta['primary_text'] }}
+                                    </a>
+                                @endif
 
-                            <a href="{{ $program['cta']['secondary_url'] }}" class="block w-full bg-white hover:bg-gray-100 text-[#990000] font-bold py-3 px-4 rounded-xl border-2 border-[#990000]/20 transition-colors">
-                                {{ $program['cta']['secondary_text'] }}
-                            </a>
+                                {{-- Secondary Button (Only shows if secondary_text and secondary_url exist) --}}
+                                @if(isset($program->cta['secondary_text']) && isset($program->cta['secondary_url']))
+                                    <a href="{{ $program->cta['secondary_url'] }}" class="block text-center w-full bg-white hover:bg-gray-100 text-[#990000] font-bold py-3 px-4 rounded-xl border-2 border-[#990000]/20 transition-colors">
+                                        {{ $program->cta['secondary_text'] }}
+                                    </a>
+                                @endif
+                            @endif
                         </div>
 
                     </div>

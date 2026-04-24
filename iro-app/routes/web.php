@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CollegeController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\NewsArticleController;
 use App\Models\Sdg;
 
@@ -10,7 +11,6 @@ Route::view('/iro','iro')->name('iro.home');
 Route::view('/about','about')->name('about');
 Route::view('/izn','izn-program')->name('izn');
 Route::view('/academics', 'academics')->name('academics');
-Route::view('/academics/program', 'academic-program')->name('academics-program');
 Route::view('/intl-networks','international-networks')->name('intl-net');
 Route::view('/global-affairs','global-affairs')->name('global-affairs');
 
@@ -18,6 +18,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
 });
+
+// Notice the {slug} parameter added to the program route!
+Route::get('/academics', [\App\Http\Controllers\PublicController::class, 'academics'])->name('academics');
+Route::get('/academics/program/{slug}', [\App\Http\Controllers\PublicController::class, 'academicProgram'])->name('academics-program');
+
+// Inside Admin Middleware group, add:
+Route::resource('academic-programs', \App\Http\Controllers\Admin\AcademicProgramController::class);
 
 // Routes for article management
 Route::get('/news', [NewsArticleController::class, 'publicIndex'])->name('news.index'); //Public News Landing Page
