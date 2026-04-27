@@ -45,13 +45,14 @@
                         </p>
                     </section>
 
+                @if(!empty($program->structure))
                     <section x-data="{ activeTab: 0 }">
                         <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-red-100 pb-2 flex items-center gap-3">
                             <svg class="w-7 h-7 text-[#990000]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             Program Structure
                         </h2>
                         <div class="space-y-3">
-                            @foreach($program['structure'] as $index => $item)
+                            @foreach($program->structure as $index => $item)
                                 <div class="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
                                     <button @click="activeTab === {{ $index }} ? activeTab = null : activeTab = {{ $index }}"
                                             class="w-full flex justify-between items-center p-5 text-left focus:outline-none hover:bg-gray-50 transition-colors">
@@ -69,14 +70,16 @@
                             @endforeach
                         </div>
                     </section>
+                @endif
 
+                @if(!empty($program->eligibility))
                     <section>
                         <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-red-100 pb-2 flex items-center gap-3">
                             <svg class="w-7 h-7 text-[#990000]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             Eligibility & Requirements
                         </h2>
                         <ul class="space-y-4">
-                            @foreach($program['eligibility'] as $req)
+                            @foreach($program->eligibility as $req)
                                 <li class="flex items-start">
                                     <svg class="w-6 h-6 text-[#990000] mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     <span class="text-gray-700 text-lg">{{ $req }}</span>
@@ -84,6 +87,7 @@
                             @endforeach
                         </ul>
                     </section>
+                @endif
 
                     <section class="bg-[#990000]/5 p-8 rounded-2xl border border-[#990000]/20">
                         <h2 class="text-2xl font-bold text-[#990000] mb-4 flex items-center gap-3">
@@ -91,7 +95,7 @@
                             Global Opportunities & Outcomes
                         </h2>
                         <p class="text-gray-700 text-lg leading-relaxed">
-                            {{ $program['opportunities'] }}
+                            {{ $program->opportunities }}
                         </p>
                     </section>
 
@@ -100,6 +104,7 @@
                 <aside class="lg:col-span-1">
                     <div class="sticky top-8 space-y-6">
 
+                    @if(!empty($program->quick_facts))
                         <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
                             <div class="bg-[#990000] py-4 px-6">
                                 <h3 class="text-xl font-bold text-white flex items-center gap-2">
@@ -118,6 +123,7 @@
                                 </ul>
                             </div>
                         </div>
+                    @endif
 
                         <div class="bg-gray-50 rounded-2xl border border-gray-200 p-6 text-center">
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to expand your horizons?</h3>

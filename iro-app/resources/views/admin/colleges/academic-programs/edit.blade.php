@@ -1,10 +1,15 @@
 <x-layouts::app.sidebar>
     <flux:main>
-    <x-slot name="header">
+
+    <div class="flex items-center gap-4">
+        <a href="{{ route('colleges.index') }}" class="text-gray-500 hover:text-red-700 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            </a>
         <h2 class="font-bold text-2xl text-red-900 leading-tight">
             Edit Program: {{ $program->title }}
         </h2>
-    </x-slot>
+    </div>
+
 
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
@@ -90,6 +95,6 @@
             </form>
 
         </div>
-    </div>  
+    </div>
     </flux:main>
 </x-layouts::app.sidebar>

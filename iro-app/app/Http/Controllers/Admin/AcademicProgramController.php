@@ -7,21 +7,16 @@ use App\Models\AcademicProgram; // Make sure to import the model
 use App\Models\College;         // You might need this for the create view
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;     // Make sure to import Str for the slug
+use Illuminate\Support\Facades\Storage;
 
 
 class AcademicProgramController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         $colleges = \App\Models\College::all();
@@ -30,35 +25,28 @@ class AcademicProgramController extends Controller
         return view('admin.colleges.academic-programs.create', compact('colleges', 'selectedCollegeId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(\Illuminate\Http\Request $request)
     {
         $validated = $request->validate([
             'college_id' => 'required|exists:colleges,id',
-            'title' => 'required|string',
+            'title' => 'required|string|max:255',
+            'degree_level' => 'nullable|string',
             'overview' => 'required|string',
             'eligibility' => 'nullable|array',
             'structure' => 'nullable|array',
-            'quick_facts' => 'nullable|array', // Added this based on our previous setup
-            'opportunities' => 'nullable|string',
-            // Add any other fields you want the admin to fill out
+            'quick_facts' => 'nullable|array',
         ]);
 
-        // Automatically generate a URL-friendly slug (e.g., "BS Computer Science" -> "bs-computer-science")
-        $validated['slug'] = Str::slug($validated['title']);
+        // Generate the URL slug
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
 
-        // Save to the database
-        AcademicProgram::create($validated);
+        // Save to database
+        \App\Models\AcademicProgram::create($validated);
 
-        // Redirect back to the admin table with a success message
-        return redirect()->route('academic-programs.index')->with('success', 'Program added successfully!');
+        // Redirect back to the main Manage Colleges page!
+        return redirect()->route('colleges.index')->with('success', 'New Program added successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
