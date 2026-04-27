@@ -32,7 +32,7 @@ class CollegeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255|unique:colleges,slug',
+            'description' => 'nullable|string|max:255',
         ]);
         $slug = $request->slug ? \Illuminate\support\Str::slug($request->slug) : \Illuminate\Support\Str::slug($request->name);
         College::create([
@@ -96,6 +96,13 @@ class CollegeController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        // 1. Find the college by its ID (will throw a 404 error if it doesn't exist)
+        $college = College::findOrFail($id);
+
+        // 2. Delete it from the database
+        $college->delete();
+
+        // 3. Redirect back to the table with a success message
+        return redirect()->route('colleges.index')->with('success', 'College deleted successfully.');
     }
 }

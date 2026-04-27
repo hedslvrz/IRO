@@ -1,6 +1,5 @@
 <x-layouts::app.sidebar>
     <flux:main>
-        <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-bold text-2xl text-red-900 leading-tight">
                 {{ __('Manage Colleges & Programs') }}
@@ -11,7 +10,6 @@
                 Add New College
             </a>
         </div>
-    </x-slot>
 
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">

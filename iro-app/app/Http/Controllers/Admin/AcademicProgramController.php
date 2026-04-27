@@ -30,6 +30,7 @@ class AcademicProgramController extends Controller
         $validated = $request->validate([
             'college_id' => 'required|exists:colleges,id',
             'title' => 'required|string|max:255',
+            'image' => 'nullable|image|max:2048',
             'degree_level' => 'nullable|string',
             'overview' => 'required|string',
             'eligibility' => 'nullable|array',
@@ -37,8 +38,12 @@ class AcademicProgramController extends Controller
             'quick_facts' => 'nullable|array',
         ]);
 
+        // Handle Image Upload
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('programs', 'public');
+        }
         // Generate the URL slug
-        $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
+        $validated['slug'] = \Illuminate\Support\Str::slug($request->title);
 
         // Save to database
         \App\Models\AcademicProgram::create($validated);
@@ -73,6 +78,7 @@ class AcademicProgramController extends Controller
             'slug' => 'nullable|string|max:255|unique:academic_programs,slug,' . $id,
             'category' => 'nullable|string',
             'degree_level' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'overview' => 'nullable|string',
             'opportunities' => 'nullable|string',
             // Arrays for our JSON columns
@@ -80,6 +86,15 @@ class AcademicProgramController extends Controller
             'structure' => 'nullable|array',
             'quick_facts' => 'nullable|array',
         ]);
+
+            // CHECK FOR THE IMAGE UPLOAD
+        if ($request->hasFile('image')) {
+            // Store the file in the 'public/programs' folder
+            $imagePath = $request->file('image')->store('programs', 'public');
+
+            // Add the path to the array so it saves to the database
+            $validated['image'] = $imagePath;
+        }
 
         $validated['slug'] = $request->slug ? \Illuminate\Support\Str::slug($request->slug) : \Illuminate\Support\Str::slug($request->title);
 

@@ -1,8 +1,6 @@
 <x-layouts::app.iro-sidebar>
 
     <flux:main>
-
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
             <a href="/academics" class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-[#990000] mb-8 transition-colors">
@@ -10,23 +8,24 @@
                 Back to Academic Programs
             </a>
 
-            <div class="relative w-full h-75 md:h-100 rounded-3xl overflow-hidden shadow-lg mb-12 bg-gray-900 flex items-end">
-                <img src="{{ $program->image }}" alt="{{ $program->title }}" class="absolute inset-0 w-full h-full object-cover opacity-50">
-                <div class="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent"></div>
+            <div class="relative w-full h-75 md:h-100 rounded-3xl overflow-hidden shadow-lg mb-12 bg-gray-900 flex items-end bg-cover bg-center"
+                style="background-image: url('{{ $program->image ? asset('storage/' . $program->image) : 'https://placehold.co/1200x500/990000/ffffff?text=No+Image' }}');">
+
+                <div class="absolute inset-0 bg-black/50 bg-linear-to-t from-black via-black/60 to-transparent"></div>
 
                 <div class="relative z-10 p-8 md:p-12 w-full">
                     <div class="flex flex-wrap gap-3 mb-4">
                         <span class="bg-[#990000] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-sm">
                             {{ $program->category }}
                         </span>
-                        @if($program['degree_level'])
+                        @if($program->degree_level)
                             <span class="bg-white/20 backdrop-blur-md text-white border border-white/30 text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-sm">
-                                {{ $program['degree_level'] }}
+                                {{ $program->degree_level }}
                             </span>
                         @endif
                     </div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-md">
-                        {{ $program['title'] }}
+                        {{ $program->title }}
                     </h1>
                 </div>
             </div>
@@ -114,12 +113,22 @@
                             </div>
                             <div class="p-6">
                                 <ul class="divide-y divide-gray-100">
-                                    @foreach($program['quick_facts'] as $label => $value)
-                                        <li class="py-3 flex flex-col">
-                                            <span class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">{{ $label }}</span>
-                                            <span class="text-gray-900 font-medium">{{ $value }}</span>
-                                        </li>
-                                    @endforeach
+                                    @if($program->quick_facts)
+                                        @foreach($program->quick_facts as $key => $fact)
+                                            <li class="py-3 flex flex-col">
+                                                {{-- Check if it is the NEW format (an array) --}}
+                                                @if(is_array($fact))
+                                                    <span class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">{{ $fact['label'] }}</span>
+                                                    <span class="text-gray-900 font-medium">{{ $fact['value'] }}</span>
+
+                                                {{-- Otherwise, fall back to the OLD format --}}
+                                                @else
+                                                    <span class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">{{ $key }}</span>
+                                                    <span class="text-gray-900 font-medium">{{ $fact }}</span>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
