@@ -30,6 +30,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class);
 
+Route::get('/about', function () {
+    // Grab the data, or create an empty instance so the page doesn't crash if empty
+    $about = \App\Models\About::firstOrCreate(['id' => 1]);
+    return view('about', compact('about'));
+})->name('about');
+
+// 2. Add the Admin routes inside your auth middleware group
+Route::middleware(['auth', 'verified'])->group(function () {
+    // ... existing routes ...
+
+    // About Us Admin Routes
+    Route::get('manage-about', [\App\Http\Controllers\Admin\AboutController::class, 'edit'])->name('about.edit');
+    Route::put('manage-about', [\App\Http\Controllers\Admin\AboutController::class, 'update'])->name('about.update');
+});
+
     // New Admin Route for IZN Certifications
     Route::resource('izn-certifications', \App\Http\Controllers\Admin\IznCertificationController::class);
 });
