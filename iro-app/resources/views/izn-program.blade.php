@@ -34,73 +34,44 @@
         {{-- CONTENT AREA (Right Column) --}}
         <main class="md:w-3/4 space-y-20">
 
-            {{-- SECTION 1: GLOBAL RANKINGS (Documents & PDFs) --}}
+            {{-- SECTION 1: IRO SEALS & CERTIFICATIONS --}}
             <section id="global-rankings" class="scroll-mt-24">
-                <h2 class="text-2xl font-bold text-red-900 mb-4 border-b-2 border-red-100 pb-3">Global Rankings</h2>
+                <h2 class="text-2xl font-bold text-red-900 mb-4 border-b-2 border-red-100 pb-3">Global Rankings & Certifications</h2>
                 <p class="text-gray-600 leading-relaxed mb-8">
-                    Western Mindanao State University's commitment to excellence is reflected in our international standing. Download the official reports and documents below to learn more about our global rankings and quality assurance metrics.
+                    Western Mindanao State University's commitment to internationalization is recognized globally. Explore the prestigious rankings and certifications awarded to our institution, reflecting our dedication to quality assurance and global excellence.
                 </p>
 
-                {{-- Document Cards Grid --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {{-- Certifications Cards Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    {{-- QS Stars University Ratings Methodology (PDF) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        {{-- PDF Icon --}}
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">QS Stars University Ratings Methodology</h4>
-                            <p class="text-xs text-gray-500 mb-3">PDF Document</p>
-                            <a href="{{ asset('documents/QS-Stars_University-Methodology_v6.0-2024.pdf') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+                    @forelse($certifications as $cert)
+                        {{-- Card: Padding reduced to p-6, gap reduced to gap-4 --}}
+                        <div class="bg-white border-2 border-red-100 rounded-2xl p-6 flex flex-col items-center text-center gap-4 hover:border-red-400 hover:shadow-lg transition duration-300 group">
 
-                    {{-- THE Impact Methodology 2026 (PDF) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">THE Impact Methodology 2026</h4>
-                            <p class="text-xs text-gray-500 mb-3">PDF Document</p>
-                            <a href="{{ asset('documents/THE Impact Methodology 2026.pdf') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+                            {{-- Seal/Logo Container (Reduced from w-40 to w-32 for a cleaner fit) --}}
+                            <div class="w-32 h-32 shrink-0 bg-transparent flex items-center justify-center p-1">
+                                @if($cert->logo_path)
+                                    <img src="{{ asset('storage/' . $cert->logo_path) }}" alt="{{ $cert->name }} Seal" class="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-500">
+                                @else
+                                    <img src="{{ asset('images/wmsu-seal.png') }}" alt="WMSU Seal" class="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-500">
+                                @endif
+                            </div>
 
-                    {{-- UI GreenMetric SUR Guideline 2026 (PDF) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
+                            {{-- Text Content (Font sizes scaled down slightly to match the new image size) --}}
+                            <div class="flex flex-col justify-start w-full">
+                                <h4 class="font-bold text-gray-900 text-lg md:text-xl mb-2 group-hover:text-red-800 transition px-2 line-clamp-2">
+                                    {{ $cert->name }}
+                                </h4>
+                                <p class="text-sm text-gray-600 leading-relaxed px-2">
+                                    {{ $cert->description }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">UI GreenMetric SUR Guideline 2026</h4>
-                            <p class="text-xs text-gray-500 mb-3">PDF Document</p>
-                            <a href="{{ asset('documents/UI_GreenMetric_SUR_Guideline_2026.pdf') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    {{-- QMSO-IRO CRITERIA for MTC Quality Awardees (Word) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        {{-- Word Icon --}}
-                        <div class="p-3 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">QMSO-IRO CRITERIA for MTC Quality Awardees</h4>
-                            <p class="text-xs text-gray-500 mb-3">Word Document</p>
-                            <a href="{{ asset('documents/QMSO-IRO CRITERIA-for-MTC-Quality-Awardeees.docx') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-gray-500 text-center py-10 col-span-1 md:col-span-2 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                            No certifications or seals have been added yet.
+                        </p>
+                    @endforelse
 
                 </div>
             </section>

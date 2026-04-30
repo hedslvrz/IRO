@@ -9,7 +9,6 @@ use App\Models\Sdg;
 Route::view('/', 'iro')->name('home');
 Route::view('/iro','iro')->name('iro.home');
 Route::view('/about','about')->name('about');
-Route::view('/izn','izn-program')->name('izn');
 Route::view('/academics', 'academics')->name('academics');
 Route::view('/intl-networks','international-networks')->name('intl-net');
 Route::view('/global-affairs','global-affairs')->name('global-affairs');
@@ -17,6 +16,22 @@ Route::view('/global-affairs','global-affairs')->name('global-affairs');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
+});
+
+// 1. Update your public route to pass data (Replace your Route::view('/izn'...))
+Route::get('/izn', function () {
+    $certifications = \App\Models\IznCertification::all();
+    return view('izn-program', compact('certifications'));
+})->name('izn');
+
+
+// 2. Add the Admin resource to your authenticated group
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class);
+
+    // New Admin Route for IZN Certifications
+    Route::resource('izn-certifications', \App\Http\Controllers\Admin\IznCertificationController::class);
 });
 
 // Notice the {slug} parameter added to the program route!
