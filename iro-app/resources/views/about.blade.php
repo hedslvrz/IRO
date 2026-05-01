@@ -124,7 +124,6 @@
                     </div>
                 </div>
 
-                {{-- The 3 Pillars (Horizontal Layout for Variable Lengths) --}}
                 <div class="space-y-12">
 
                     {{-- Pillar 1: Functions --}}
