@@ -16,7 +16,7 @@
                     next() { this.activeSlide = this.activeSlide === this.totalSlides - 1 ? 0 : this.activeSlide + 1 },
                     prev() { this.activeSlide = this.activeSlide === 0 ? this.totalSlides - 1 : this.activeSlide - 1 }
                 }"
-                class="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg mb-12 group bg-gray-900">
+                class="relative w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-lg mb-12 group bg-gray-900">
 
                 <div class="relative w-full h-full">
                     @foreach($featuredNews as $index => $news)
@@ -32,7 +32,7 @@
 
                             <img src="{{ $news->cover_image ? asset('storage/' . $news->cover_image) : 'https://placehold.co/1200x600/550000/ffffff?text=No+Image' }}" alt="{{ $news->title }}" class="w-full h-full object-cover opacity-60">
 
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                            <div class="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent"></div>
 
                             <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white">
                                 <span class="bg-[#990000] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded mb-4 inline-block">
