@@ -18,6 +18,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
 });
 
+    Route::get('/about', function () {
+        // Grab the data, or create an empty instance so the page doesn't crash if empty
+        $about = \App\Models\About::firstOrCreate(['id' => 1]);
+        return view('about', compact('about'));
+    })->name('about');
+
 // 1. Update your public route to pass data (Replace your Route::view('/izn'...))
 Route::get('/izn', function () {
     $certifications = \App\Models\IznCertification::all();
@@ -40,12 +46,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin/izn-programs')->name('izn
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class);
-
-Route::get('/about', function () {
-    // Grab the data, or create an empty instance so the page doesn't crash if empty
-    $about = \App\Models\About::firstOrCreate(['id' => 1]);
-    return view('about', compact('about'));
-})->name('about');
 
 // 2. Add the Admin routes inside your auth middleware group
 Route::middleware(['auth', 'verified'])->group(function () {
