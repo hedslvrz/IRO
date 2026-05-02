@@ -21,9 +21,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // 1. Update your public route to pass data (Replace your Route::view('/izn'...))
 Route::get('/izn', function () {
     $certifications = \App\Models\IznCertification::all();
-    return view('izn-program', compact('certifications'));
+    $partnerships = \App\Models\IznPartnership::latest()->get();
+    return view('izn-program', compact('certifications', 'partnerships'));
 })->name('izn');
+Route::middleware(['auth', 'verified'])->prefix('admin/izn-programs')->name('izn-programs.')->group(function () {
 
+    // The Unified Index Page
+    Route::get('/', [\App\Http\Controllers\Admin\IznProgramController::class, 'index'])->name('index');
+
+    // Certification Actions (Create, Store, Edit, Update, Destroy)
+    Route::resource('certifications', \App\Http\Controllers\Admin\IznCertificationController::class)->except(['index']);
+
+    // Partnership Actions (Create, Store, Edit, Update, Destroy)
+    Route::resource('partnerships', \App\Http\Controllers\Admin\IznPartnershipController::class)->except(['index']);
+});
 
 // 2. Add the Admin resource to your authenticated group
 Route::middleware(['auth', 'verified'])->group(function () {

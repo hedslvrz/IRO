@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border-t-4 border-red-700">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <form action="{{ route('izn-certifications.update', $certification->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <form action="{{ route('izn-certifications.update', $certification->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="submit-btn" >
                         @csrf
                         @method('PUT') {{-- Required for update requests --}}
 
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
-                            <a href="{{ route('izn-certifications.index') }}" class="text-gray-600 hover:text-gray-900 font-medium text-sm">Cancel</a>
+                            <a href="{{ route('izn-programs.index') }}" class="text-gray-600 hover:text-gray-900 font-medium text-sm">Cancel</a>
                             <button type="submit" class="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-6 rounded-md shadow-sm transition">Update Certification</button>
                         </div>
                     </form>

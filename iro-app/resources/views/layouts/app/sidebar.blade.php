@@ -18,7 +18,7 @@
                     <flux:sidebar.item :href="route('about.edit')" :current="request()->routeIs('about.*')" wire:navigate>
                         {{ __('About Us') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item :href="route('izn-certifications.index')" :current="request()->routeIs('izn-certifications.*')" wire:navigate>
+                    <flux:sidebar.item :href="route('izn-programs.index')" :current="request()->routeIs('izn-programs.*')" wire:navigate>
                         {{ __('IZN Programs') }}
                     </flux:sidebar.item>
                     <flux:sidebar.item :href="route('colleges.index')" :current="request()->routeIs('colleges.*')" wire:navigate>

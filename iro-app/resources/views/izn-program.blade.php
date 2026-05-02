@@ -83,32 +83,54 @@
                     Watch the highlights of our international collaborations, MoU signings, and cultural exchange programs with partner universities around the globe.
                 </p>
 
-                {{-- Video Gallery Grid --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{-- Dynamic Posts Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    {{-- Video Item: US Travel Report_Sir Mario.mp4 --}}
-                    <div class="group cursor-pointer">
-                        {{-- Video Thumbnail Area --}}
-                        <div class="relative w-full aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-sm group-hover:shadow-lg transition duration-300">
-                            {{-- Use a placeholder or extract a thumbnail image to represent the video --}}
-                            <div class="absolute inset-0 bg-cover bg-center opacity-70 group-hover:scale-105 transition duration-500" style="background-image: url('{{ asset('images/us_travel_thumbnail.jpg') }}');"></div>
-                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition duration-300"></div>
+                    @forelse($partnerships as $post)
+                        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-red-200 transition duration-300 group flex flex-col">
 
-                            {{-- Play Button Overlay --}}
-                            <a href="{{ asset('videos/US Travel Report_Sir Mario.mp4') }}" target="_blank" class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-14 h-14 bg-red-600/90 text-white rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-red-700 group-hover:scale-110 transition duration-300">
-                                    <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            {{-- Post Featured Image or Video--}}
+                            <div class="aspect-video bg-black overflow-hidden relative border-b border-gray-100 flex items-center justify-center group">
+                                @if($post->image_path)
+                                    {{-- Changed object-cover to object-contain so nothing is ever cropped --}}
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-full object-contain group-hover:scale-105 transition duration-700">
+                                @elseif($post->video_path)
+                                    {{-- Video is also object-contain --}}
+                                    <video class="w-full h-full object-contain" controls preload="metadata">
+                                        <source src="{{ asset('storage/' . $post->video_path) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                @else
+                                    {{-- Fallback --}}
+                                    <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                    </div>
+                                @endif
+                            </div>
+
+                            {{-- Post Content --}}
+                            <div class="p-6 flex flex-col grow">
+                                <h4 class="font-bold text-gray-900 text-lg mb-3 group-hover:text-red-700 transition line-clamp-2">
+                                    {{ $post->title }}
+                                </h4>
+                                <p class="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed grow">
+                                    {{ $post->description }}
+                                </p>
+
+                                {{-- Date Footer --}}
+                                <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 font-medium">
+                                    <span class="flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        {{ $post->created_at->format('M d, Y') }}
+                                    </span>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                        {{-- Video Title/Info --}}
-                        <div class="mt-4">
-                            <h4 class="font-bold text-gray-900 group-hover:text-red-700 transition">US Travel Report</h4>
-                            <p class="text-sm text-gray-500 mt-1">Video Clip</p>
-                        </div>
-                    </div>
-
-                    {{-- Add more video items here if you have more videos --}}
+                    @empty
+                        <p class="text-gray-500 text-center py-12 col-span-1 md:col-span-2 lg:col-span-3 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                            No partnership highlights have been posted yet.
+                        </p>
+                    @endforelse
 
                 </div>
             </section>

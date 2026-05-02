@@ -13,12 +13,12 @@ class IznCertificationController extends Controller
     public function index()
     {
         $certifications = IznCertification::latest()->paginate(10);
-        return view('admin.izn-certifications.index', compact('certifications'));
+        return view('admin.izn-programs.index', compact('certifications'));
     }
 
     public function create()
     {
-        return view('admin.izn-certifications.create');
+        return view('admin.izn-programs.certifications.create');
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class IznCertificationController extends Controller
             'logo_path' => $imagePath,
         ]);
 
-        return redirect()->route('izn-certifications.index')->with('success', 'Certification added successfully.');
+        return redirect()->route('izn-programs.index')->with('success', 'Certification added successfully.');
     }
 
     public function show(string $id)
@@ -52,7 +52,7 @@ class IznCertificationController extends Controller
     public function edit(string $id)
     {
         $certification = IznCertification::findOrFail($id);
-        return view('admin.izn-certifications.edit', compact('certification'));
+        return view('admin.izn-programs.certifications.edit', compact('certification'));
     }
 
     public function update(Request $request, string $id)
@@ -82,7 +82,7 @@ class IznCertificationController extends Controller
             'logo_path' => $imagePath,
         ]);
 
-        return redirect()->route('izn-certifications.index')->with('success', 'Certification updated successfully.');
+        return redirect()->route('izn-programs.index')->with('success', 'Certification updated successfully.');
     }
 
     public function destroy(string $id)
@@ -94,6 +94,6 @@ class IznCertificationController extends Controller
         }
 
         $certification->delete();
-        return redirect()->route('izn-certifications.index')->with('success', 'Certification deleted successfully.');
+        return redirect()->route('izn-programs.index')->with('success', 'Certification deleted successfully.');
     }
 }
