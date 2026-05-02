@@ -30,6 +30,9 @@
                     <flux:sidebar.item :href="route('admin.sdgs.index')" :current="request()->routeIs('sdgs.*')" wire:navigate>
                         {{ __('Manage SDGs') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('global-affairs.index')" :current="request()->routeIs('global-affairs.*')" wire:navigate>
+                        {{ __('Manage Global Affairs') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
