@@ -15,6 +15,9 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('home-settings.edit')" :current="request()->routeIs('home-settings.*')" wire:navigate>
+                        {{ __('Home') }}
+                    </flux:sidebar.item>
                     <flux:sidebar.item :href="route('about.edit')" :current="request()->routeIs('about.*')" wire:navigate>
                         {{ __('About Us') }}
                     </flux:sidebar.item>

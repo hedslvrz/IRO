@@ -7,16 +7,26 @@ use App\Http\Controllers\NewsArticleController;
 use App\Http\Controllers\GlobalAffairController;
 use App\Models\Sdg;
 
-Route::view('/', 'iro')->name('home');
-Route::view('/iro','iro')->name('iro.home');
 Route::view('/about','about')->name('about');
 Route::view('/academics', 'academics')->name('academics');
 Route::view('/intl-networks','international-networks')->name('intl-net');
 Route::view('/global-affairs','global-affairs')->name('global-affairs');
 
+Route::get('/', function () {
+    $settings = \App\Models\HomeSetting::firstOrCreate(['id' => 1]);
+    return view('iro', compact('settings'));
+})->name('home');
+
+Route::get('/iro', function () {
+    $settings = \App\Models\HomeSetting::firstOrCreate(['id' => 1]);
+    return view('iro', compact('settings'));
+})->name('iro.home');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
+    Route::get('admin/home-settings', [\App\Http\Controllers\Admin\HomeSettingController::class, 'edit'])->name('home-settings.edit');
+    Route::put('admin/home-settings', [\App\Http\Controllers\Admin\HomeSettingController::class, 'update'])->name('home-settings.update');
 });
 
     Route::get('/about', function () {
