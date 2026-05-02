@@ -24,6 +24,26 @@ Route::get('/iro', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', function () {
+        // 1. Count Global Affairs (We know this table exists!)
+        $servicesCount = \App\Models\GlobalAffair::count();
+
+        // 2. Count the others (Using null coalescing / class_exists to prevent errors if you haven't made these models yet)
+        $partnershipsCount = class_exists(\App\Models\IznPartnership::class) ? \App\Models\IznPartnership::count() : 0;
+        $certificationsCount = class_exists(\App\Models\IznCertification::class) ? \App\Models\IznCertification::count() : 0;
+
+        // Assuming you will name your news model 'News' or 'Article' later
+        $newsCount = class_exists(\App\Models\NewsArticle::class) ? \App\Models\NewsArticle::count() : 0;
+
+        // Pass all these counts to the dashboard view
+        return view('dashboard', compact(
+            'servicesCount',
+            'partnershipsCount',
+            'certificationsCount',
+            'newsCount'
+        ));
+    })->name('dashboard');
+    
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class)->middleware('auth');
     Route::get('admin/home-settings', [\App\Http\Controllers\Admin\HomeSettingController::class, 'edit'])->name('home-settings.edit');
     Route::put('admin/home-settings', [\App\Http\Controllers\Admin\HomeSettingController::class, 'update'])->name('home-settings.update');
@@ -59,7 +79,6 @@ Route::prefix('admin')->group(function () {
 
 // 2. Add the Admin resource to your authenticated group
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('colleges', \App\Http\Controllers\Admin\CollegeController::class);
 
 // 2. Add the Admin routes inside your auth middleware group
@@ -89,7 +108,6 @@ Route::get('/news/{news:slug}', [NewsArticleController::class, 'show'])->name('n
 
 // Admin Routes (Protected by Auth)
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
     // Admin CMS routes for News
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('news', NewsArticleController::class);
