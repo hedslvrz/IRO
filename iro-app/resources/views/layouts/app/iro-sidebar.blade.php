@@ -97,6 +97,6 @@
             scrollbar-width: none;  /* Firefox */
         }
     </style>
-
+    <x-footer />
 </body>
 </html>
