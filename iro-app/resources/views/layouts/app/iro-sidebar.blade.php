@@ -35,7 +35,7 @@
                 </div>
 
                 {{-- 2. Navigation Links (Right Side / Horizontally Scrolling on small screens) --}}
-                <div class="flex-1 overflow-x-auto flex items-center pl-6 space-x-2 no-scrollbar">
+                <div class="flex-1 overflow-x-auto flex items-center pl-6 space-x-2 no-scrollbar hidden md:flex items-center w-full justify-evenly">
 
                     {{-- Active Link Example --}}
                     <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-md text-sm whitespace-nowrap transition duration-200 group {{ request()->routeIs('home') ? 'bg-red-50 text-emerald-900 font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium' }}">
