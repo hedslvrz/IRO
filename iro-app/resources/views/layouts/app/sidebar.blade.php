@@ -4,35 +4,83 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                <flux:sidebar.collapse class="lg:hidden" />
-            </flux:sidebar.header>
+        <flux:sidebar sticky class="bg-gray-50 border-r border-gray-200 pb-4">
+            <flux:sidebar.toggle class="lg:hidden text-gray-500 hover:text-gray-700" icon="bars-3" inset="left" />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
+            {{-- 1. IRO BRANDING & SEAL --}}
 
-                    <flux:sidebar.item :href="route('colleges.index')" :current="request()->routeIs('colleges.*')" wire:navigate>
-                        {{ __('Manage Colleges') }}
-                    </flux:sidebar.item >
-                </flux:sidebar.group>
-            </flux:sidebar.nav>
+                {{-- IRO Seal Image --}}
+                <img src="{{ asset('images/IMG_0518.PNG') }}" alt="WMSU IRO Seal" class="h-10 w-10 object-contain bg-white rounded-full p-0.5 shadow-sm border border-gray-200">
+
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold text-red-900 leading-tight tracking-wide">WMSU IRO</span>
+                    <span class="text-xs text-gray-500 font-semibold uppercase tracking-widest mt-0.5">Admin Portal</span>
+                </div>
+
+
+            {{-- 2. MAIN NAVIGATION --}}
+            <flux:navlist variant="outline" class="px-3">
+
+                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                    {{ __('Dashboard') }}
+                </flux:navlist.item>
+
+                <flux:navlist.group heading="Website Content" class="text-red-900/60 font-bold text-[11px] uppercase tracking-wider mt-6 mb-1 px-2">
+                    <flux:navlist.item icon="globe-alt" :href="route('home-settings.edit')" :current="request()->routeIs('home-settings.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('Home Page') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="information-circle" :href="route('about.edit')" :current="request()->routeIs('about.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('About Us') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.group heading="IRO Operations" class="text-red-900/60 font-bold text-[11px] uppercase tracking-wider mt-6 mb-1 px-2">
+                    <flux:navlist.item icon="academic-cap" :href="route('izn-programs.index')" :current="request()->routeIs('izn-programs.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('IZN Programs') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="academic-cap" :href="route('colleges.index')" :current="request()->routeIs('colleges.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('Academics') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="academic-cap" :href="route('admin.sdgs.index')" :current="request()->routeIs('admin.sdgs.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('Sustainability') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="academic-cap" :href="route('admin.news.index')" :current="request()->routeIs('admin.news.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('News & Info') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="briefcase" :href="route('global-affairs.index')" :current="request()->routeIs('global-affairs.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                        {{ __('Global Affairs') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
+            </flux:navlist>
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
+            {{-- 3. USER & SETTINGS --}}
+            <flux:navlist variant="outline" class="px-3 border-t border-gray-200 pt-4 mt-4 bg-gray-50/50">
+                <flux:navlist.item icon="cog-6-tooth" href="{{ route('profile.edit') }}" :current="request()->routeIs('profile.*')" class="text-gray-600 hover:text-red-800 hover:bg-red-50 data-current:bg-red-800 data-current:text-white transition-all duration-200" wire:navigate>
+                    {{ __('Settings') }}
+                </flux:navlist.item>
 
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
+                <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    @csrf
+                    <flux:navlist.item icon="arrow-right-start-on-rectangle" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="text-gray-600 hover:text-red-800 hover:bg-red-50 transition-all duration-200">
+                        {{ __('Log Out') }}
+                    </flux:navlist.item>
+                </form>
+            </flux:navlist>
+        </flux:sidebar>
+
+        <!-- Mobile User Menu -->
+        <flux:header class="lg:hidden">
+            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+
+            <flux:spacer />
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>

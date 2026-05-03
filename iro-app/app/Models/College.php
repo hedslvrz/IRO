@@ -9,5 +9,11 @@ class College extends Model
     protected $fillable = [
         'name',
         'description',
+        'slug',
     ];
+
+    public function programs()
+    {
+        return $this->hasMany(AcademicProgram::class);
+    }
 }

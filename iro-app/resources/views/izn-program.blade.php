@@ -34,73 +34,44 @@
         {{-- CONTENT AREA (Right Column) --}}
         <main class="md:w-3/4 space-y-20">
 
-            {{-- SECTION 1: GLOBAL RANKINGS (Documents & PDFs) --}}
+            {{-- SECTION 1: IRO SEALS & CERTIFICATIONS --}}
             <section id="global-rankings" class="scroll-mt-24">
-                <h2 class="text-2xl font-bold text-red-900 mb-4 border-b-2 border-red-100 pb-3">Global Rankings</h2>
+                <h2 class="text-2xl font-bold text-red-900 mb-4 border-b-2 border-red-100 pb-3">Global Rankings & Certifications</h2>
                 <p class="text-gray-600 leading-relaxed mb-8">
-                    Western Mindanao State University's commitment to excellence is reflected in our international standing. Download the official reports and documents below to learn more about our global rankings and quality assurance metrics.
+                    Western Mindanao State University's commitment to internationalization is recognized globally. Explore the prestigious rankings and certifications awarded to our institution, reflecting our dedication to quality assurance and global excellence.
                 </p>
 
-                {{-- Document Cards Grid --}}
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {{-- Certifications Cards Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    {{-- QS Stars University Ratings Methodology (PDF) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        {{-- PDF Icon --}}
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">QS Stars University Ratings Methodology</h4>
-                            <p class="text-xs text-gray-500 mb-3">PDF Document</p>
-                            <a href="{{ asset('documents/QS-Stars_University-Methodology_v6.0-2024.pdf') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+                    @forelse($certifications as $cert)
+                        {{-- Card: Padding reduced to p-6, gap reduced to gap-4 --}}
+                        <div class="bg-white border-2 border-red-100 rounded-2xl p-6 flex flex-col items-center text-center gap-4 hover:border-red-400 hover:shadow-lg transition duration-300 group">
 
-                    {{-- THE Impact Methodology 2026 (PDF) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">THE Impact Methodology 2026</h4>
-                            <p class="text-xs text-gray-500 mb-3">PDF Document</p>
-                            <a href="{{ asset('documents/THE Impact Methodology 2026.pdf') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+                            {{-- Seal/Logo Container (Reduced from w-40 to w-32 for a cleaner fit) --}}
+                            <div class="w-32 h-32 shrink-0 bg-transparent flex items-center justify-center p-1">
+                                @if($cert->logo_path)
+                                    <img src="{{ asset('storage/' . $cert->logo_path) }}" alt="{{ $cert->name }} Seal" class="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-500">
+                                @else
+                                    <img src="{{ asset('images/wmsu-seal.png') }}" alt="WMSU Seal" class="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-500">
+                                @endif
+                            </div>
 
-                    {{-- UI GreenMetric SUR Guideline 2026 (PDF) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
+                            {{-- Text Content (Font sizes scaled down slightly to match the new image size) --}}
+                            <div class="flex flex-col justify-start w-full">
+                                <h4 class="font-bold text-gray-900 text-lg md:text-xl mb-2 group-hover:text-red-800 transition px-2 line-clamp-2">
+                                    {{ $cert->name }}
+                                </h4>
+                                <p class="text-sm text-gray-600 leading-relaxed px-2">
+                                    {{ $cert->description }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">UI GreenMetric SUR Guideline 2026</h4>
-                            <p class="text-xs text-gray-500 mb-3">PDF Document</p>
-                            <a href="{{ asset('documents/UI_GreenMetric_SUR_Guideline_2026.pdf') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    {{-- QMSO-IRO CRITERIA for MTC Quality Awardees (Word) --}}
-                    <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4 hover:border-red-300 hover:shadow-md transition group">
-                        {{-- Word Icon --}}
-                        <div class="p-3 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 text-sm mb-1 line-clamp-2">QMSO-IRO CRITERIA for MTC Quality Awardees</h4>
-                            <p class="text-xs text-gray-500 mb-3">Word Document</p>
-                            <a href="{{ asset('documents/QMSO-IRO CRITERIA-for-MTC-Quality-Awardeees.docx') }}" class="text-sm font-semibold text-red-700 hover:text-red-900 flex items-center gap-1" target="_blank">
-                                Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-gray-500 text-center py-10 col-span-1 md:col-span-2 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                            No certifications or seals have been added yet.
+                        </p>
+                    @endforelse
 
                 </div>
             </section>
@@ -112,32 +83,54 @@
                     Watch the highlights of our international collaborations, MoU signings, and cultural exchange programs with partner universities around the globe.
                 </p>
 
-                {{-- Video Gallery Grid --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{-- Dynamic Posts Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    {{-- Video Item: US Travel Report_Sir Mario.mp4 --}}
-                    <div class="group cursor-pointer">
-                        {{-- Video Thumbnail Area --}}
-                        <div class="relative w-full aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-sm group-hover:shadow-lg transition duration-300">
-                            {{-- Use a placeholder or extract a thumbnail image to represent the video --}}
-                            <div class="absolute inset-0 bg-cover bg-center opacity-70 group-hover:scale-105 transition duration-500" style="background-image: url('{{ asset('images/us_travel_thumbnail.jpg') }}');"></div>
-                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition duration-300"></div>
+                    @forelse($partnerships as $post)
+                        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-red-200 transition duration-300 group flex flex-col">
 
-                            {{-- Play Button Overlay --}}
-                            <a href="{{ asset('videos/US Travel Report_Sir Mario.mp4') }}" target="_blank" class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-14 h-14 bg-red-600/90 text-white rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-red-700 group-hover:scale-110 transition duration-300">
-                                    <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            {{-- Post Featured Image or Video--}}
+                            <div class="aspect-video bg-black overflow-hidden relative border-b border-gray-100 flex items-center justify-center group">
+                                @if($post->image_path)
+                                    {{-- Changed object-cover to object-contain so nothing is ever cropped --}}
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-full object-contain group-hover:scale-105 transition duration-700">
+                                @elseif($post->video_path)
+                                    {{-- Video is also object-contain --}}
+                                    <video class="w-full h-full object-contain" controls preload="metadata">
+                                        <source src="{{ asset('storage/' . $post->video_path) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                @else
+                                    {{-- Fallback --}}
+                                    <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                    </div>
+                                @endif
+                            </div>
+
+                            {{-- Post Content --}}
+                            <div class="p-6 flex flex-col grow">
+                                <h4 class="font-bold text-gray-900 text-lg mb-3 group-hover:text-red-700 transition line-clamp-2">
+                                    {{ $post->title }}
+                                </h4>
+                                <p class="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed grow">
+                                    {{ $post->description }}
+                                </p>
+
+                                {{-- Date Footer --}}
+                                <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 font-medium">
+                                    <span class="flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        {{ $post->created_at->format('M d, Y') }}
+                                    </span>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                        {{-- Video Title/Info --}}
-                        <div class="mt-4">
-                            <h4 class="font-bold text-gray-900 group-hover:text-red-700 transition">US Travel Report</h4>
-                            <p class="text-sm text-gray-500 mt-1">Video Clip</p>
-                        </div>
-                    </div>
-
-                    {{-- Add more video items here if you have more videos --}}
+                    @empty
+                        <p class="text-gray-500 text-center py-12 col-span-1 md:col-span-2 lg:col-span-3 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                            No partnership highlights have been posted yet.
+                        </p>
+                    @endforelse
 
                 </div>
             </section>

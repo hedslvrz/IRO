@@ -1,80 +1,7 @@
 <x-layouts::app.iro-sidebar>
 
     <flux:main>
-        @php
-            // 1. Featured/Latest News for the Hero Carousel
-            $featuredNews = [
-                [
-                    'title' => 'WMSU Forges New Partnership with Global Tech University',
-                    'date' => 'March 18, 2026',
-                    'category' => 'Partnerships',
-                    'excerpt' => 'In a landmark move for internationalization, WMSU has officially signed a Memorandum of Understanding to facilitate student and faculty exchanges starting next semester.',
-                    'image' => 'https://placehold.co/1200x600/550000/ffffff?text=WMSU+Partnership',
-                ],
-                [
-                    'title' => 'Application for Fall 2026 Exchange Programs Now Open',
-                    'date' => 'March 15, 2026',
-                    'category' => 'Mobility',
-                    'excerpt' => 'Students interested in studying abroad can now submit their applications. Explore opportunities in Asia, Europe, and the Americas.',
-                    'image' => 'https://placehold.co/1200x600/990000/ffffff?text=Exchange+Programs',
-                ],
-                [
-                    'title' => 'International Research Symposium to be Hosted in Zamboanga',
-                    'date' => 'March 10, 2026',
-                    'category' => 'Research',
-                    'excerpt' => 'Scholars from over 15 partner universities will gather at WMSU to present collaborative findings on sustainable development.',
-                    'image' => 'https://placehold.co/1200x600/770000/ffffff?text=Research+Symposium',
-                ]
-            ];
 
-            // 2. General News List (Left Column)
-            $generalNews = [
-                [
-                    'title' => 'Visiting Professors Arrive for Cultural Exchange Month',
-                    'date' => 'March 5, 2026',
-                    'excerpt' => 'The IRO warmly welcomes delegates who will be conducting special lecture series across various colleges.',
-                    'image' => 'https://placehold.co/400x300/eeeeee/990000?text=News+1',
-                ],
-                [
-                    'title' => 'WMSU Delegates Attend ASEAN University Network Summit',
-                    'date' => 'February 28, 2026',
-                    'excerpt' => 'University officials traveled to Bangkok to participate in the annual strategic planning for regional higher education.',
-                    'image' => 'https://placehold.co/400x300/eeeeee/990000?text=News+2',
-                ],
-                [
-                    'title' => 'New Language Center Opens to Support Outbound Students',
-                    'date' => 'February 20, 2026',
-                    'excerpt' => 'A new facility dedicated to TOEFL and IELTS preparation has been inaugurated at the main campus.',
-                    'image' => 'https://placehold.co/400x300/eeeeee/990000?text=News+3',
-                ],
-                [
-                    'title' => 'International Alumni Network Officially Launched',
-                    'date' => 'February 14, 2026',
-                    'excerpt' => 'Connecting past exchange students and international graduates to foster lifelong global linkages.',
-                    'image' => 'https://placehold.co/400x300/eeeeee/990000?text=News+4',
-                ],
-            ];
-
-            // 3. Trending/Popular Posts (Right Column)
-            $trendingPosts = [
-                [
-                    'title' => 'Step-by-Step Guide: How to Apply for an IRO Scholarship',
-                    'views' => '2.4k Views',
-                ],
-                [
-                    'title' => 'Top 5 Destinations for WMSU Exchange Students',
-                    'views' => '1.8k Views',
-                ],
-                [
-                    'title' => 'Visa Processing Updates for Spring 2026',
-                    'views' => '1.2k Views',
-                ],
-                [
-                    'title' => 'Meet the New International Student Ambassadors',
-                    'views' => '950 Views',
-                ],
-            ];
-        @endphp
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -86,10 +13,10 @@
             <div x-data="{
                     activeSlide: 0,
                     totalSlides: {{ count($featuredNews) }},
-                    next() { this.activeSlide = activeSlide === this.totalSlides - 1 ? 0 : this.activeSlide + 1 },
-                    prev() { this.activeSlide = activeSlide === 0 ? this.totalSlides - 1 : this.activeSlide - 1 }
+                    next() { this.activeSlide = this.activeSlide === this.totalSlides - 1 ? 0 : this.activeSlide + 1 },
+                    prev() { this.activeSlide = this.activeSlide === 0 ? this.totalSlides - 1 : this.activeSlide - 1 }
                 }"
-                class="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg mb-12 group bg-gray-900">
+                class="relative w-full h-100 md:h-125 rounded-2xl overflow-hidden shadow-lg mb-12 group bg-gray-900">
 
                 <div class="relative w-full h-full">
                     @foreach($featuredNews as $index => $news)
@@ -103,33 +30,32 @@
                              class="absolute inset-0 w-full h-full"
                              style="display: none;" x-cloak>
 
-                            <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover opacity-60">
+                            <img src="{{ $news->cover_image ? asset('storage/' . $news->cover_image) : 'https://placehold.co/1200x600/550000/ffffff?text=No+Image' }}" alt="{{ $news->title }}" class="w-full h-full object-cover opacity-60">
 
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                            <div class="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent"></div>
 
                             <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white">
                                 <span class="bg-[#990000] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded mb-4 inline-block">
-                                    {{ $news['category'] }}
+                                    {{ $news->category }}
                                 </span>
                                 <h2 class="text-3xl md:text-5xl font-bold mb-3 leading-tight drop-shadow-md">
-                                    {{ $news['title'] }}
+                                    {{ $news->title }}
                                 </h2>
                                 <p class="text-gray-200 text-lg md:text-xl max-w-3xl mb-4 line-clamp-2">
-                                    {{ $news['excerpt'] }}
+                                    {{ $news->excerpt }}
                                 </p>
                                 <div class="flex items-center text-sm font-medium text-gray-300">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                    {{ $news['date'] }}
+                                    {{ $news->published_at ? $news->published_at->format('F j, Y') : $news->created_at->format('F j, Y') }}
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
-                <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                <button @click="prev()" class="absolute z-10 left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
-                <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                <button @click="next()" class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-[#990000] text-white rounded-full flex items-center justify-center backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
 
@@ -152,17 +78,17 @@
 
                     <div class="flex flex-col gap-6">
                         @foreach($generalNews as $news)
-                            <a href="/news/article" class="group flex flex-col sm:flex-row gap-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-red-100 transition-all">
+                            <a href="/news/{{ $news->slug }}" class="group flex flex-col sm:flex-row gap-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-red-100 transition-all">
                                 <div class="w-full sm:w-48 h-48 sm:h-32 shrink-0 overflow-hidden rounded-lg">
-                                    <img src="{{ $news['image'] }}" alt="Thumbnail" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <img src="{{ $news->cover_image ? asset('storage/' . $news->cover_image) : 'https://placehold.co/400x300/eeeeee/990000?text=News' }}" alt="Thumbnail" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                 </div>
                                 <div class="flex flex-col justify-center">
-                                    <div class="text-[#990000] text-sm font-semibold mb-1">{{ $news['date'] }}</div>
+                                    <div class="text-[#990000] text-sm font-semibold mb-1">{{ $news->published_at ? $news->published_at->format('F j, Y') : $news->created_at->format('F j, Y') }}</div>
                                     <h4 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#990000] transition-colors leading-snug">
-                                        {{ $news['title'] }}
+                                        {{ $news->title }}
                                     </h4>
                                     <p class="text-gray-600 text-sm line-clamp-2">
-                                        {{ $news['excerpt'] }}
+                                        {{ $news->excerpt }}
                                     </p>
                                 </div>
                             </a>
@@ -186,15 +112,17 @@
 
                         <div class="flex flex-col gap-5">
                             @foreach($trendingPosts as $index => $post)
-                                <a href="#" class="flex gap-4 group">
+                                <a href="/news/{{ $post->slug }}" class="flex gap-4 group">
                                     <span class="text-3xl font-black text-gray-200 group-hover:text-[#990000] transition-colors">
                                         0{{ $index + 1 }}
                                     </span>
                                     <div>
                                         <h4 class="text-md font-bold text-gray-800 group-hover:text-[#990000] transition-colors leading-tight mb-1">
-                                            {{ $post['title'] }}
+                                            {{ $post->title }}
                                         </h4>
-                                        <span class="text-xs text-gray-500 font-medium">{{ $post['views'] }}</span>
+                                        <span class="text-xs text-gray-500 font-medium">
+                                            {{ number_format($post->views) }} Views
+                                        </span>
                                     </div>
                                 </a>
                             @endforeach

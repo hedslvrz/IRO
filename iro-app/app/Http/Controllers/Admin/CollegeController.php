@@ -13,7 +13,7 @@ class CollegeController extends Controller
      */
     public function index()
     {
-        $colleges = College::latest()->paginate(10);
+        $colleges = College::with('programs')->orderBy('name', 'asc')->get();
         return view('admin.colleges.index', compact ('colleges'));
     }
 
@@ -32,7 +32,7 @@ class CollegeController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255|unique:colleges,slug',
+            'description' => 'nullable|string|max:255',
         ]);
         $slug = $request->slug ? \Illuminate\support\Str::slug($request->slug) : \Illuminate\Support\Str::slug($request->name);
         College::create([
@@ -56,7 +56,11 @@ class CollegeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Find the specific college or throw a 404 error
+        $college = College::findOrFail($id);
+
+        // Pass it to the edit view
+        return view('admin.colleges.edit', compact('college'));
     }
 
     /**
@@ -64,14 +68,41 @@ class CollegeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // 1. Validate the incoming data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            // For the slug, we must tell Laravel to ignore THIS specific college's ID
+            // when checking if the slug is unique, otherwise it will error on itself!
+            'slug' => 'nullable|string|max:255|unique:colleges,slug,' . $id,
+            'description' => 'required|string',
+        ]);
+
+        // 2. Find the college
+        $college = College::findOrFail($id);
+
+        // 3. Format the slug
+        $slug = $request->slug ? \Illuminate\Support\Str::slug($request->slug) : \Illuminate\Support\Str::slug($request->name);
+
+        // 4. Update the database record
+        $college->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => $slug,
+        ]);
+
+        // 5. Redirect back to the table with a success message
+        return redirect()->route('colleges.index')->with('success', 'College updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        // 1. Find the college by its ID (will throw a 404 error if it doesn't exist)
+        $college = College::findOrFail($id);
+
+        // 2. Delete it from the database
+        $college->delete();
+
+        // 3. Redirect back to the table with a success message
+        return redirect()->route('colleges.index')->with('success', 'College deleted successfully.');
     }
 }
