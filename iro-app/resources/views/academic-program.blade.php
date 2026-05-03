@@ -133,28 +133,6 @@
                             </div>
                         </div>
                     @endif
-
-                        <div class="bg-gray-50 rounded-2xl border border-gray-200 p-6 text-center">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to expand your horizons?</h3>
-                            <p class="text-sm text-gray-600 mb-6">Contact the International Relations Office or start your application today.</p>
-
-                            @if($program->cta)
-                                {{-- Primary Button (Only shows if primary_text and primary_url exist) --}}
-                                @if(isset($program->cta['primary_text']) && isset($program->cta['primary_url']))
-                                    <a href="{{ $program->cta['primary_url'] }}" class="block text-center w-full bg-[#990000] hover:bg-red-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors mb-3">
-                                        {{ $program->cta['primary_text'] }}
-                                    </a>
-                                @endif
-
-                                {{-- Secondary Button (Only shows if secondary_text and secondary_url exist) --}}
-                                @if(isset($program->cta['secondary_text']) && isset($program->cta['secondary_url']))
-                                    <a href="{{ $program->cta['secondary_url'] }}" class="block text-center w-full bg-white hover:bg-gray-100 text-[#990000] font-bold py-3 px-4 rounded-xl border-2 border-[#990000]/20 transition-colors">
-                                        {{ $program->cta['secondary_text'] }}
-                                    </a>
-                                @endif
-                            @endif
-                        </div>
-
                     </div>
                 </aside>
 
