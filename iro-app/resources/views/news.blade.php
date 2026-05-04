@@ -94,12 +94,6 @@
                             </a>
                         @endforeach
                     </div>
-
-                    <div class="pt-4 flex justify-center">
-                        <button class="px-6 py-2 border-2 border-[#990000] text-[#990000] font-semibold rounded-lg hover:bg-[#990000] hover:text-white transition-colors">
-                            Load More News
-                        </button>
-                    </div>
                 </div>
 
                 <aside class="lg:col-span-1 space-y-8">
@@ -128,19 +122,6 @@
                             @endforeach
                         </div>
                     </div>
-
-                    <div class="bg-[#990000] p-6 rounded-2xl text-white shadow-lg text-center">
-                        <svg class="w-12 h-12 mx-auto mb-4 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        <h3 class="text-xl font-bold mb-2">Subscribe to IRO Newsletter</h3>
-                        <p class="text-sm text-red-100 mb-6">Get the latest international opportunities delivered directly to your inbox.</p>
-                        <div class="flex flex-col gap-2">
-                            <input type="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded-lg text-gray-900 border-none focus:ring-2 focus:ring-red-300 outline-none">
-                            <button class="w-full bg-gray-900 hover:bg-black text-white font-bold py-2 px-4 rounded-lg transition-colors">
-                                Subscribe
-                            </button>
-                        </div>
-                    </div>
-
                 </aside>
 
             </div>

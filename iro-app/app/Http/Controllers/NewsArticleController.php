@@ -21,12 +21,12 @@ class NewsArticleController extends Controller
         // GENERAL: Published, but NOT featured (avoids duplicates)
         $generalNews = NewsArticle::where('is_published', true)
                                   ->latest('published_at')
-                                  ->take(6)->get();
+                                  ->paginate(6);
 
         // TRENDING: Most viewed published articles
         $trendingPosts = NewsArticle::where('is_published', true)
                                     ->orderBy('views', 'desc')
-                                    ->take(4)->get();
+                                    ->take(5)->get();
 
         return view('news', compact('featuredNews', 'generalNews', 'trendingPosts'));
     }
